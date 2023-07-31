@@ -2,7 +2,7 @@ import { ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder, User } 
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('ban')
+		.setName('globalban')
 		.setDescription('Bans A User')
 		.addUserOption(user => user
 			.setName('user')
@@ -32,7 +32,15 @@ module.exports = {
 		// .addFields({ name: 'Inline field title', value: 'Some value here', inline: true })
 		.setTimestamp()
 		.setFooter({ text: 'User Banned'});
-		await interaction.guild?.bans.create(target, {deleteMessageSeconds: 604800 , reason: reason})
+		let guildarray = process.env.GUILD_LIST!.split(","); // Server List
+		for (let guild of guildarray) {
+			try {
+			let guildobject = await interaction.client.guilds.fetch(guild)
+			await guildobject.bans.create(target, {deleteMessageSeconds: 604800 , reason: reason})
+			} catch {
+				"Insert Error"
+			}
+		}
 			
 		await interaction.editReply({ content: 'User Has Been Banned', embeds: [banEmbed]});
 	},
