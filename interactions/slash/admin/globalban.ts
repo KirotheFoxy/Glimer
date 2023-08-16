@@ -21,7 +21,6 @@ module.exports = {
 		const banEmbed = new EmbedBuilder()
 		.setColor(0x0099FF)
 		.setTitle('User Banned')
-		.setAuthor({ name: 'Kail Bot', iconURL: 'https://cdn.discordapp.com/avatars/1112284541483229214/e5c466b23cfe0381bf4a04e712638fe0.webp?size=2048'})
 		.setDescription(`${target.username} Has Been Banned`)
 		// .addFields(
 		//     { name: 'Regular field title', value: 'Some value here' },

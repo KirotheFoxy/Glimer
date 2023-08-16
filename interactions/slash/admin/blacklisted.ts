@@ -32,7 +32,6 @@ module.exports = {
 		const blacklistEmbed = new EmbedBuilder()
 		.setColor(0xFF0000)
 		.setTitle('Blacklisted Added')
-		.setAuthor({ name: 'Kail Bot', iconURL: 'https://cdn.discordapp.com/avatars/1112284541483229214/e5c466b23cfe0381bf4a04e712638fe0.webp?size=2048'})
 		.setDescription(`<@${target.id}> Has Been Blacklisted`)
 		 .addFields(
             { name: 'User Id', value: `${target.id}` },

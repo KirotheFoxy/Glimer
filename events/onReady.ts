@@ -10,7 +10,6 @@ module.exports = {
         const restartEmbed = new EmbedBuilder()
             .setColor(0x0099FF)
             .setTitle('Bot Restart')
-            .setAuthor({ name: 'Kail Bot', iconURL: 'https://cdn.discordapp.com/avatars/1112284541483229214/e5c466b23cfe0381bf4a04e712638fe0.webp?size=2048'})
             .setDescription('Bot has Been Restarted')
             // .addFields(
             //     { name: 'Regular field title', value: 'Some value here' },
