@@ -1,7 +1,7 @@
 // Require the necessary discord.js classes
 import { Client, Collection, GatewayIntentBits, REST, Routes } from "discord.js"
 import * as fs from "fs"
-import log from "./handlers/logger";
+import log, { errLog } from "./handlers/logger";
 
 export interface CustomClient extends Client {
     commands: Collection<string, any>;
@@ -32,16 +32,21 @@ client.cooldowns = new Collection();
 const eventFiles = fs
 	.readdirSync("./events")
 	.filter((file: any) => file.endsWith(".ts"));
+
+// Loop through all files and execute the event when it is actually emmited.
 for (const file of eventFiles) {
 	const event = require(`./events/${file}`);
-	try {
+	try{
 		if (event.once) {
-			client.once(event.name, (...args: any) => event.execute(...args, client))
+			client.once(event.name, (...args: any) => event.execute(...args, client));
 		} else {
-			client.on(event.name, async (...args: any) => await event.execute(...args, client))
-		}
+			client.on(
+				event.name,
+				async (...args: any) => await event.execute(...args, client)
+			);
+		};
 	} catch (error: any) {
-		throw(error)
+		errLog(client, error, false);
 	}
 }
 
@@ -64,14 +69,14 @@ for (const folder of commandFolders) {
 const slashCommands = fs.readdirSync("./interactions/slash");
 
 for (const module of slashCommands) {
-    const commandFiles = fs
-        .readdirSync(`./interactions/slash/${module}`)
-        .filter((file) => file.endsWith(".ts"));
+	const commandFiles = fs
+		.readdirSync(`./interactions/slash/${module}`)
+		.filter((file) => file.endsWith(".ts"));
 
-    for (const commandFile of commandFiles) {
-        const command = require(`./interactions/slash/${module}/${commandFile}`);
-        client.slashCommands.set(command.data.name, command);
-    }
+	for (const commandFile of commandFiles) {
+		const command = require(`./interactions/slash/${module}/${commandFile}`);
+		client.slashCommands.set(command.data.name, command);
+	}
 }
 
 // Button Command Handler
