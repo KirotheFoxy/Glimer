@@ -59,6 +59,19 @@ export const log = winston.createLogger({
     level: 'silly',
     levels: config.levels,
     transports: [consoleTransport, fileRotateTransportCombined, fileRotateTransportWarn],
+    handleExceptions: true,
+    exceptionHandlers: [
+        new winston.transports.DailyRotateFile({
+            level: 'error',
+            filename: './logs/error-%DATE%.log',
+            datePattern: 'MM-DD-YYYY',
+            maxFiles: '14d',
+            format: combine(
+                timestamp(),
+                json()
+            )
+        })
+    ],
 });
 export default log;
 
