@@ -25,19 +25,16 @@ module.exports = {
 		} catch {
 			userData = await userDB.findOne({ where: { userID: member.id } });
 			userData.joinCount += 1;
-			userData.VRTime = 0;
 			await userData.save();
 		};
 
 		guildInvites.forEach(async (invite) => {
 			inviteData = await inviteDB.findOne({ where: { code: invite.code } });
 			if (inviteData.uses != invite.uses) {
-				inviteData.uses = invite.uses;
-				await inviteData.save();
-				userData.inviterID = inviteData.authorID;
-				await userData.save();
+				await inviteData.update({ uses: invite.uses }, { where: { code: invite.code }});
+				userData = await userData.update({ inviterID: inviteData.authorID }, { where: { userID: member.id }});
 			};
-		});
+		})
 
 		// log join
 		const joinLog = new EmbedBuilder()
@@ -55,6 +52,6 @@ module.exports = {
 			joinLog.addFields({ name: "Inviter", value: `<@${userData.inviterID}>` });
 		};
 
-		(client.channels.cache.get(process.env.INVITE_LOGS!) as TextChannel).send({ embeds: [joinLog] });
+		await (client.channels.cache.get(process.env.INVITE_LOGS!) as TextChannel).send({ embeds: [joinLog] });
 	},
 };
