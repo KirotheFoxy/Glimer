@@ -13,28 +13,29 @@ module.exports = {
 		var cTimestamp = `<t:` + cTimestampR + `:R>`;
 
         // Cache invites on the server
-		const guild: Guild | undefined = client.guilds.cache.get(process.env.TEST_GUILD_ID!);
-		if (!guild) return errLog(client, "Guild not found.", false);
-        const guildInvites = await guild.invites.fetch();
+        const guildInvites = await member.guild.invites.fetch();
 
         // Test each cached invites against the database for differences in uses
 		let userData: any;
 		let inviteData: any;
-		try {
-			userData = await userDB.create({ userID: member.id });
-		} catch {
-			userData = await userDB.findOne({ where: { userID: member.id } });
-			userData.joinCount += 1;
-			await userData.save();
-		};
+		let inviteAuthor: any;
 
 		guildInvites.forEach(async (invite) => {
 			inviteData = await inviteDB.findOne({ where: { code: invite.code } });
 			if (inviteData.uses != invite.uses) {
 				await inviteData.update({ uses: invite.uses }, { where: { code: invite.code }});
-				userData = await userData.update({ inviterID: inviteData.authorID }, { where: { userID: member.id }});
+				inviteAuthor = invite.inviterId;
 			};
 		});
+
+		try {
+			userData = await userDB.create({ userID: member.id, inviterID: inviteAuthor });
+		} catch {
+			userData = await userDB.findOne({ where: { userID: member.id } });
+			var joinCount = userData.joinCount += 1;
+			userData = await userData.update({ inviterID: inviteAuthor, joinCount: joinCount }, { where: { userID: member.id }});
+		};
+
 
 		// log join
 		const joinLog = new EmbedBuilder()
