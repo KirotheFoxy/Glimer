@@ -14,7 +14,7 @@ module.exports = {
             intLog(interaction);
             await command.execute(interaction)
         } catch (error: any) {
-            errLog(interaction.client as CustomClient, error);
+            errLog(interaction.client as CustomClient, error, true);
             await interaction.reply({
                 content: "Insert Error 😊",
                 ephemeral:true
