@@ -60,6 +60,16 @@ module.exports = {
                 banLog.setThumbnail(`https://cdn.discordapp.com/avatars/${target!.id}/${target!.avatar}.png?size=1024`);
 
                 await eventLogsChannel.send({ embeds: [banLog] });
+
+
+                if (auditLogEntry.executorId != process.env.CLIENT_ID) {
+                    await banDB.create({
+                        user: target!.id,
+                        reason: reason,
+                        staff: auditLogEntry.executorId as string
+                    });
+                };
+
                 log.info(`${target!.username} | Banned`);               
             break;
             
