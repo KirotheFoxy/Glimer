@@ -45,6 +45,6 @@ module.exports = {
 		.setFooter({ text: 'User Blacklisted'});
 		
         await interaction.editReply({ content: 'Blacklist Added ✅'});
-        await (interaction.guild!.channels.cache.get(process.env.ROLE_LOGS!) as TextChannel).send({embeds: [blacklistEmbed]})
+        await (interaction.guild!.channels.cache.get(process.env.BLACKLIST_LOGS!) as TextChannel).send({embeds: [blacklistEmbed]})
 	},
 };
