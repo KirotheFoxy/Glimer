@@ -19,15 +19,15 @@ module.exports = {
 		let target = interaction.options.getUser("user") as User
 		let reason = interaction.options.getString("reason") as string
 		const banEmbed = new EmbedBuilder()
-		.setColor(0x0099FF)
-		.setTitle('User Banned')
-		.setDescription(`${target.username} Has Been Banned`)
-		// .addFields(
-		//     { name: 'Regular field title', value: 'Some value here' },
-		//     { name: '\u200B', value: '\u200B' },
+		.setColor(0xFF0000)
+		.setTitle('Ban Added')
+		.setDescription(`<@${target.id}> Has Been Global Banned`)
+		 .addFields(
+			{ name: 'User Id', value: `${target.id}` },
+			{ name: 'Global Ban Reason', value: reason },
+			{ name: 'Responsible Admin For Global Ban', value: `<@${interaction.user.id}>` },
 		//     { name: 'Inline field title', value: 'Some value here', inline: true },
-		//     { name: 'Inline field title', value: 'Some value here', inline: true },
-		// )
+		 )
 		// .addFields({ name: 'Inline field title', value: 'Some value here', inline: true })
 		.setTimestamp()
 		.setFooter({ text: 'User Banned'});
@@ -41,6 +41,6 @@ module.exports = {
 			}
 		}
 			
-		await interaction.editReply({ content: 'User Has Been Banned', embeds: [banEmbed]});
+		await interaction.editReply({embeds: [banEmbed]});
 	},
 };

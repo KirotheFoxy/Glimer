@@ -1,4 +1,5 @@
 import { ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder, User } from "discord.js";
+import { banDB } from "../../../handlers/db";
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -31,7 +32,12 @@ module.exports = {
             // .addFields({ name: 'Inline field title', value: 'Some value here', inline: true })
             .setTimestamp()
             .setFooter({ text: 'User Banned'});
-		await interaction.guild?.bans.create(target, {deleteMessageSeconds: 604800 , reason: reason})
+		await interaction.guild?.bans.create(target, {deleteMessageSeconds: 604800 , reason: reason});
+        await banDB.create({
+            user: target!.id,
+            reason: reason,
+            staff: interaction.user.id,
+        });
 			
 		await interaction.editReply({embeds: [banEmbed]});
 	},

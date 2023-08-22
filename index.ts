@@ -1,9 +1,12 @@
 // Require the necessary discord.js classes
 import { Client, Collection, GatewayIntentBits, REST, Routes } from "discord.js"
 import * as fs from "fs"
+
 export interface CustomClient extends Client {
+    commands: Collection<string, any>;
     slashCommands: Collection<string, any>;
 	buttonCommands: Collection<string, any>;
+    cooldowns: Collection<string, any>;
 };
 
 // Create a new client instance
@@ -18,8 +21,10 @@ const client: any = new Client({ intents: [
 	GatewayIntentBits.MessageContent,
 ] });
 
+client.commands = new Collection();
 client.slashCommands = new Collection();
 client.buttonCommands = new Collection();
+client.cooldowns = new Collection();
 
 // Event Handler
 
@@ -36,6 +41,20 @@ for (const file of eventFiles) {
 		}
 	} catch (error: any) {
 		throw(error)
+	}
+}
+
+// Message-Based  Command Handler
+
+const commandFolders = fs.readdirSync("./commands");
+
+for (const folder of commandFolders) {
+	const commandFiles = fs
+		.readdirSync(`./commands/${folder}`)
+		.filter((file) => file.endsWith(".ts"));
+	for (const file of commandFiles) {
+		const command = require(`./commands/${folder}/${file}`);
+		client.commands.set(command.name, command);
 	}
 }
 

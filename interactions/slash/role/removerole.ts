@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, EmbedBuilder, GuildMember, Role, SlashCommandBuilder } from "discord.js";
+import { ChatInputCommandInteraction, EmbedBuilder, GuildMember, Role, SlashCommandBuilder, TextChannel } from "discord.js";
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -18,7 +18,9 @@ module.exports = {
             await interaction.deferReply()
             let target = (await interaction.guild?.members.fetch(interaction.options.getUser("user", true).id) as GuildMember);
             let role = interaction.options.getRole("role") as Role
-            const temproleEmbed = new EmbedBuilder()
+
+            if (role.name === '@everyone') return interaction.editReply({content: 'No. Just No.'});
+            const roleEmbed = new EmbedBuilder()
             .setColor(0xFF0000)
             .setTitle('Role Removed')
             .setDescription(`<@${target.id}> Has Been Lost a Role `)
@@ -33,6 +35,7 @@ module.exports = {
             .setFooter({ text: 'Role Update'});
         await  target.roles.remove(role)
 
-		await interaction.editReply({embeds: [temproleEmbed]});
+        await interaction.editReply({ content: 'Role Removed ✅'});
+        await (interaction.guild!.channels.cache.get(process.env.EVENT_LOGS!) as TextChannel).send({embeds: [roleEmbed]})
 	},
 };
