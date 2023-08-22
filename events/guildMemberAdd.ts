@@ -1,6 +1,6 @@
 import { EmbedBuilder, GuildMember, Guild, TextChannel } from "discord.js";
 import { inviteDB, userDB } from '../handlers/db.ts';
-import { CustomClient } from "../index.ts";
+import { CustomClient } from "../";
 import { errLog } from "../handlers/logger.ts";
 
 module.exports = {
@@ -34,7 +34,7 @@ module.exports = {
 				await inviteData.update({ uses: invite.uses }, { where: { code: invite.code }});
 				userData = await userData.update({ inviterID: inviteData.authorID }, { where: { userID: member.id }});
 			};
-		})
+		});
 
 		// log join
 		const joinLog = new EmbedBuilder()
