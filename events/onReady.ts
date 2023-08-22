@@ -45,20 +45,20 @@ module.exports = {
 
         // Cache invites on the server
         const guildInvites = await guild.invites.fetch();
-        for (const invite of guildInvites.values()) {
-            const inviteDBData = await inviteDB.findOne({ where: { code: invite.code } });
-            if (inviteDBData) {
-                if (inviteDBData.uses != invite.uses) {
+        guildInvites.forEach(async (invite: any) => {
+            let inviteData = await inviteDB.findOne({ where: { code: invite.code } });
+            if (inviteData) {
+                if (inviteData.uses != invite.uses) {
                     inviteDB.update({ uses: invite.uses as number }, { where: { code: invite.code } });
-                }
+                };
             } else {
                 inviteDB.create({
                     code: invite.code,
                     authorID: invite.inviterId as string,
                     uses: invite.uses as number,
                 });
-            }
-        };
+            };
+        })
 
         // Filter through the ones on the DB and see if they are still active
         const inviteDBData = await inviteDB.findAll();
