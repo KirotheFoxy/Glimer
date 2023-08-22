@@ -1,6 +1,7 @@
 // Require the necessary discord.js classes
 import { Client, Collection, GatewayIntentBits, REST, Routes } from "discord.js"
 import * as fs from "fs"
+import log from "./handlers/logger";
 
 export interface CustomClient extends Client {
     commands: Collection<string, any>;
@@ -98,14 +99,14 @@ const commandJsonData = [
 
 (async () => {
     try {
-        console.log("Started refreshing application (/) commands.");
+        log.info("Started refreshing application (/) commands.");
 
         await rest.put(
             Routes.applicationGuildCommands(process.env.CLIENT_ID!, process.env.TEST_GUILD_ID!),
             { body: commandJsonData }
         );
 
-        console.log("Successfully reloaded application (/) commands.");
+        log.info("Successfully reloaded application (/) commands.");
     } catch (error: any) {
         throw(error);
     }

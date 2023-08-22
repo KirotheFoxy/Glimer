@@ -20,7 +20,7 @@ module.exports = {
     async execute(client: CustomClient) {
         const guild: Guild | undefined = client.guilds.cache.get(process.env.TEST_GUILD_ID!);
         if (!guild) return errLog(client, "Guild not found.", false);
-        console.log(`${client.user?.username} Is Online`);
+        log.info(`${client.user?.username} Is Online`);
         const restartEmbed = new EmbedBuilder()
             .setColor(0x0099FF)
             .setTitle('Bot Restart')
