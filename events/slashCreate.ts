@@ -1,6 +1,6 @@
 import { Interaction } from "discord.js";
 import { CustomClient } from "..";
-import { intLog } from '../handlers/logger.ts';
+import { errLog, intLog } from '../handlers/logger.ts';
 
 module.exports = {
     name: "interactionCreate",
@@ -13,8 +13,8 @@ module.exports = {
         try {
             intLog(interaction);
             await command.execute(interaction)
-        } catch (error) {
-            console.warn(error)
+        } catch (error: any) {
+            errLog(interaction.client as CustomClient, error);
             await interaction.reply({
                 content: "Insert Error 😊",
                 ephemeral:true
