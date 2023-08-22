@@ -24,7 +24,7 @@ module.exports = {
             .setFooter({ text: `User ID: ${member.user.id}` });
 
         // Log the leave
-        (client.channels.cache.get(process.env.INVITE_LOGS!) as TextChannel).send({ embeds: [left] });
+        await (client.channels.cache.get(process.env.INVITE_LOGS!) as TextChannel).send({ embeds: [left] });
         log.info(`${member.user.username} | User Left`);
     },
 };
