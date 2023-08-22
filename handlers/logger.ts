@@ -173,7 +173,7 @@ export async function intLog(interaction: Interaction) {
                     };
                 };
 
-                (client.channels.cache.get(process.env.COMMAND_LOGS!) as TextChannel).send({ embeds: [logEmbed('Slash Command', interaction, cmdName!, data)] });
+                (client.channels.cache.get(process.env.EVENT_LOGS!) as TextChannel).send({ embeds: [logEmbed('Slash Command', interaction, cmdName!, data)] });
                 log.verbose(`${intType} | ${cmdName!} | Called by ${user.username}`, data);
             } else {
                 log.verbose(`${intType} | ${cmdName!} | Called by ${user.username}`);
@@ -183,11 +183,11 @@ export async function intLog(interaction: Interaction) {
             let contextInteraction = interaction as ContextMenuCommandInteraction;
             data.push({name: 'User', value: contextInteraction.targetId, type: 6});
 
-            (client.channels.cache.get(process.env.COMMAND_LOGS!) as TextChannel).send({ embeds: [logEmbed('Context (User)', interaction, cmdName!, data)] });
+            (client.channels.cache.get(process.env.EVENT_LOGS!) as TextChannel).send({ embeds: [logEmbed('Context (User)', interaction, cmdName!, data)] });
             log.verbose(`${intType!} | ${cmdName!} | Called by ${user.username} | Ran on ${user.username}`);
             break;
         default:
-            (client.channels.cache.get(process.env.COMMAND_LOGS!) as TextChannel).send({ embeds: [logEmbed(intType!, interaction, cmdName!)] });
+            (client.channels.cache.get(process.env.EVENT_LOGS!) as TextChannel).send({ embeds: [logEmbed(intType!, interaction, cmdName!)] });
             log.verbose(`${intType!} | ${cmdName!} | Called by ${user.username}`);
             break;
     };
