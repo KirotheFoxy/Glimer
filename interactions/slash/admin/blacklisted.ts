@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder, User } from "discord.js";
+import { ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder, TextChannel, User } from "discord.js";
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -43,7 +43,8 @@ module.exports = {
 		// .addFields({ name: 'Inline field title', value: 'Some value here', inline: true })
 		.setTimestamp()
 		.setFooter({ text: 'User Blacklisted'});
-        
-		await interaction.editReply({embeds: [blacklistEmbed]});
+		
+        await interaction.editReply({ content: 'Blacklist Added ✅'});
+        await (interaction.guild!.channels.cache.get(process.env.ROLE_LOGS!) as TextChannel).send({embeds: [blacklistEmbed]})
 	},
 };
