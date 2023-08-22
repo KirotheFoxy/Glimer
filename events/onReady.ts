@@ -22,7 +22,7 @@ module.exports = {
         if (!guild) return errLog(client, "Guild not found.", false);
         log.info(`${client.user?.username} Is Online`);
         const restartEmbed = new EmbedBuilder()
-            .setColor(0x0099FF)
+            .setColor(0x00FF00)
             .setTitle('Bot Restart')
             .setDescription('Bot has Been Restarted')
             // .addFields(
