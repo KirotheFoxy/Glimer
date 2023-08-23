@@ -1,4 +1,4 @@
-# Edna
+# Discord Bot
 > Discord bot Templete.
 
 [![Nodejs-Version][nodejs-image]][nodejs-url]
