@@ -96,7 +96,7 @@ module.exports = {
         text = text.replace(/&/g, 'and')
         text = text.replace(/(<a?:)(.+?)(:[0-9]+>)/g, `$2`)
 
-        const resource = createAudioResource(`https://api.streamelements.com/kappa/v2/speech?voice=Amy&text=${name} Said - ${text}`);
+        const resource = createAudioResource(`https://api.streamelements.com/kappa/v2/speech?voice=Matthew&text=${name} Said - ${text}`);
         player.play(resource);
 
         await interaction.reply({ content: `TTS - '${args}'` });
