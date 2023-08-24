@@ -43,7 +43,7 @@ module.exports = {
         
         // Make sure the command was ran in stream-chat
         if (tchannel != process.env.STREAM_CHAT) {
-            await interaction.reply({ content: 'This command can only be used in <#901168801830293604>', ephemeral: true });
+            await interaction.reply({ content: 'This command can only be used in no mic', ephemeral: true });
             return;
         };
 
