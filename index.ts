@@ -1,9 +1,10 @@
 // Require the necessary discord.js classes
-import { Client, Collection, GatewayIntentBits, REST, Routes } from "discord.js"
+import { Client, Collection, REST, GatewayIntentBits, Routes } from "discord.js"
 import * as fs from "fs"
 import log, { errLog } from "./handlers/logger";
 
 export interface CustomClient extends Client {
+    selectCommands: Collection<string, any>;
     commands: Collection<string, any>;
     slashCommands: Collection<string, any>;
 	buttonCommands: Collection<string, any>;

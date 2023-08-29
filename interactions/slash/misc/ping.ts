@@ -12,6 +12,6 @@ module.exports = {
 					.setLabel("Pong!")
 					.setStyle(ButtonStyle.Primary)
 			)
-		await interaction.reply({ content: "Bonk!", components: [r1]});
+		await interaction.reply({ content: "Bonk!",ephemeral: true, components: [r1]});
 	},
 };
