@@ -4,6 +4,6 @@ module.exports = {
     id: "test",
 
     async execute(interaction: ButtonInteraction) {
-        interaction.reply({ content: "Hello"})
+        interaction.reply({ content: "Hello", ephemeral: true})
     }
 }
