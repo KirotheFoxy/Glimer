@@ -20,15 +20,16 @@ module.exports = {
     ),
 
   async execute(interaction: ChatInputCommandInteraction) {
-    await interaction.deferReply();
+    let response = await interaction.deferReply({ fetchReply: true });
     let msgsToDelete: Collection<string, Message>;
     let msgNum = interaction.options.getInteger('amount', true);
     if (msgNum! > 100) return interaction.editReply('You can only purge up to 100 messages at a time.');
 
     let command = interaction.options.getSubcommand(true);
+
     switch (command) {
       case 'any':
-        msgsToDelete = await interaction.channel!.messages.fetch({ limit: msgNum! });
+        msgsToDelete = await interaction.channel!.messages.fetch({ limit: msgNum!, before: response.id });
         break;
       case 'user':
         msgsToDelete = await interaction.channel!.messages.fetch({ limit: msgNum! });
