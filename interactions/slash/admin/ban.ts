@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder, User } from "discord.js";
+import { ChatInputCommandInteraction, EmbedBuilder, PermissionFlagsBits, SlashCommandBuilder, User } from "discord.js";
 import { banDB } from "../../../handlers/db";
 
 module.exports = {
@@ -14,7 +14,8 @@ module.exports = {
 			.setName('reason')
 			.setDescription('Reason For The Ban')
 			.setRequired(true)
-		),
+		)
+        .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers),
         async execute(interaction: ChatInputCommandInteraction) {
             await interaction.deferReply()
             let target = interaction.options.getUser("user") as User
