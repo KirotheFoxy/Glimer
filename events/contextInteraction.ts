@@ -1,6 +1,7 @@
 import { log, errLog, intLog } from '../handlers/logger.ts';
 import { Interaction } from 'discord.js';
-import { CustomClient } from '..';
+import { CustomClient } from '../index.ts';
+import { blacklistCheck } from '../handlers/db.ts';
 
 module.exports = {
   name: 'interactionCreate',
@@ -21,6 +22,15 @@ module.exports = {
       const command = client.contextCommands.get('USER ' + interaction.commandName);
 
       // A try to execute the interaction.
+
+      var isBlacklisted = await blacklistCheck(interaction.user.id);
+      if (isBlacklisted) {
+        await interaction.reply({
+          content: 'You are blacklisted from interacting with me!',
+          ephemeral: true,
+        });
+        return;
+      }
 
       try {
         intLog(interaction);
