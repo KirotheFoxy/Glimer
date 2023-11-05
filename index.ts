@@ -8,6 +8,7 @@ export interface CustomClient extends Client {
     slashCommands: Collection<string, any>;
 	buttonCommands: Collection<string, any>;
 	contextCommands: Map<string, any>;
+	modalCommands: Map<string, any>;
     cooldowns: Collection<string, any>;
 };
 
@@ -27,6 +28,7 @@ client.commands = new Collection();
 client.slashCommands = new Collection();
 client.buttonCommands = new Collection();
 client.contextCommands = new Collection();
+client.modalCommands = new Collection();
 client.cooldowns = new Collection();
 
 // Event Handler
@@ -76,6 +78,19 @@ for (const folder of contextMenus) {
     const menu = require(`./interactions/context-menus/${folder}/${file}`);
     const keyName = `${folder.toUpperCase()} ${menu.data.name}`;
     client.contextCommands.set(keyName, menu);
+  }
+}
+
+// Registration of Modal-Command Interactions.
+
+const modalCommands = fs.readdirSync('./interactions/modals');
+
+for (const module of modalCommands) {
+  const commandFiles = fs.readdirSync(`./interactions/modals/${module}`).filter((file) => file.endsWith('.ts'));
+
+  for (const commandFile of commandFiles) {
+    const command = require(`./interactions/modals/${module}/${commandFile}`);
+    client.modalCommands.set(command.id, command);
   }
 }
 
