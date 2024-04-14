@@ -15,12 +15,8 @@ module.exports = {
                     { name: 'If you Dont Want SSU React With', value: '❌' },
                 )
                 .setTimestamp();
-            
-            const message = await interaction.fetchReply();
-            message.react('✅');
-            message.react('❌');
         
-            await interaction.editReply({ content: 'Poll Active ✅'});
+            if ( interaction.channelId = '1127656845968932864') return interaction.editReply({ content: 'Poll Active ✅'});
             await (interaction.guild!.channels.cache.get(process.env.SSU!) as TextChannel).send({embeds: [embed]})
 
         }

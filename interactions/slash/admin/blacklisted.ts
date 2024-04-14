@@ -21,7 +21,12 @@ module.exports = {
             .addChoices(
                 { name: 'Staff', value: 'Blacklisted From Staff'},
                 { name: 'Community', value: 'Blacklisted From Community'},
-                { name: 'FiveM', value: 'Blacklisted From FiveM'},
+                { name: 'Roblox', value: 'Blacklisted From Roblox'},
+				{ name: 'DPS', value: 'Blacklisted From DPS'},
+				{ name: 'GCSO', value: 'Blacklisted From GCSO'},
+				{ name: 'EEPD', value: 'Blacklisted From EEPD'},
+				{ name: 'GCFR', value: 'Blacklisted From GCFR'},
+				{ name: 'GT', value: 'Blacklisted From GT'},
             )
 		),
 	async execute(interaction: ChatInputCommandInteraction) {
