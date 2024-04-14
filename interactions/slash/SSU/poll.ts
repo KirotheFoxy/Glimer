@@ -16,7 +16,7 @@ module.exports = {
                 )
                 .setTimestamp();
         
-            if ( interaction.channelId = '1127656845968932864') return interaction.editReply({ content: 'Poll Active ✅'});
+            await interaction.editReply({ content: 'Poll Active ✅'});
             await (interaction.guild!.channels.cache.get(process.env.SSU!) as TextChannel).send({embeds: [pembed]})
 
         }
