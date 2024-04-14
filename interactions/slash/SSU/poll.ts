@@ -7,7 +7,7 @@ module.exports = {
 
         async execute(interaction: ChatInputCommandInteraction) {
             await interaction.deferReply({ ephemeral: false });
-            const embed = new EmbedBuilder()
+            const pembed = new EmbedBuilder()
                 .setTitle(`SSU Poll`)
                 .setDescription(`Would you like an SSU!`)
                 .addFields(
@@ -17,7 +17,7 @@ module.exports = {
                 .setTimestamp();
         
             if ( interaction.channelId = '1127656845968932864') return interaction.editReply({ content: 'Poll Active ✅'});
-            await (interaction.guild!.channels.cache.get(process.env.SSU!) as TextChannel).send({embeds: [embed]})
+            await (interaction.guild!.channels.cache.get(process.env.SSU!) as TextChannel).send({embeds: [pembed]})
 
         }
         

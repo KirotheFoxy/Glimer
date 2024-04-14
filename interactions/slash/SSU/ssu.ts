@@ -7,12 +7,12 @@ module.exports = {
 
         async execute(interaction: ChatInputCommandInteraction) {
             await interaction.deferReply({ ephemeral: false });
-            const embed = new EmbedBuilder()
+            const suembed = new EmbedBuilder()
                 .setTitle(`Server Start Up`)
                 .setDescription(`[SSU] Server Start-Up! Let's get active! Code: Gilmer`)
                 .setTimestamp()
                 .setFooter({ text:"Let's get some amazing roleplays started!"});
         if ( interaction.channelId = '1127656845968932864') return interaction.editReply({ content: 'SSU Active ✅'});
-        await (interaction.guild!.channels.cache.get(process.env.SSU!) as TextChannel).send({embeds: [embed]})
+        await (interaction.guild!.channels.cache.get(process.env.SSU!) as TextChannel).send({embeds: [suembed]})
         }
 };
