@@ -14,8 +14,7 @@ module.exports = {
                     { name: 'Server Code', value: 'Gilmer' },
                     { name: 'Please listen to staff at the start of patrol.', value: "Let's get some roleplays started"},
                 )
-                .setTimestamp()
-                .setFooter({ text:"Let's get some amazing roleplays started!"});
+                .setTimestamp();
         await interaction.editReply({ content: 'SSU Active ✅'});
         await (interaction.guild!.channels.cache.get(process.env.SSU!) as TextChannel).send({embeds: [suembed]})
         }
