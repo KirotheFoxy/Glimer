@@ -9,7 +9,7 @@ module.exports = {
             await interaction.deferReply({ ephemeral: false });
             const suembed = new EmbedBuilder()
                 .setTitle(`Server Start Up`)
-                .setDescription(`[SSU] Server Start-Up! Let's get active! Code: Gilmer`)
+                .setDescription(`[SSU] Server Start-Up!`)
                 .addFields(
                     { name: 'Server Code', value: 'Gilmer' },
                     { name: 'Please listen to staff at the start of patrol.', value: "Let's get some roleplays started"},
