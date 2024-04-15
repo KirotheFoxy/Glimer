@@ -11,6 +11,9 @@ module.exports = {
     if (member.user.bot) return;
     var cTimestampR = member.user.createdTimestamp.toString().substring(0, member.user.createdTimestamp.toString().length - 3);
     var cTimestamp = `<t:` + cTimestampR + `:R>`;
+       
+    // Make the event guild specific
+      if (member.guild.id !== process.env.TEST_GUILD_ID) return;
 
     // Cache invites on the server
     const guildInvites = await member.guild.invites.fetch();
