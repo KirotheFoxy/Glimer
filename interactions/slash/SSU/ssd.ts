@@ -10,6 +10,10 @@ module.exports = {
             const sdembed = new EmbedBuilder()
                 .setTitle(`[SSD] Server Shutdown`)
                 .setDescription(`Thank you for the people who joined the [SSU]`)
+                .addFields(
+                    { name: "We ask that you do not rejoin the server while it is shut down", value: "As there will be no staff members online"},
+                )
+                .setFooter({ text: "We hope to see you in the next server Startup!"})
                 .setTimestamp();
             
 
