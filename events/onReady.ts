@@ -36,7 +36,7 @@ module.exports = {
             .setTimestamp()
             .setFooter({ text: 'Time Restarted'});
 
-            client.user!.setPresence({ activities: [{ name: 'Over Stuff', type:3 }], status: 'dnd' });
+            client.user!.setPresence({ activities: [{ name: 'Over Gilmer County', type:3 }], status: 'dnd' });
 
         (client.channels.cache.get(process.env.RESTART_ID!) as TextChannel).send({ embeds: [restartEmbed]})
 
