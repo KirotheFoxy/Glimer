@@ -49,7 +49,7 @@ module.exports = {
             }
 
         await staffChannel.send({
-          content: '<@&>',
+          content: '<@&1073419405968556090>',
           embeds: [autoModLog],
         });
         log.info(`AutoMod Triggered`);
