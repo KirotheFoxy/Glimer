@@ -1,4 +1,4 @@
-import { Guild, GuildAuditLogsEntry, AuditLogEvent, EmbedBuilder, User, TextChannel } from "discord.js";
+import { Guild, GuildAuditLogsEntry, AuditLogEvent, EmbedBuilder, User, TextChannel, GuildAuditLogsEntryExtraField } from "discord.js";
 import { banDB, inviteDB } from "../handlers/db";
 import { log } from "../handlers/logger";
 
@@ -9,6 +9,7 @@ module.exports = {
     async execute(auditLogEntry: GuildAuditLogsEntry, guild: Guild) {
         if (guild.id !== process.env.TEST_GUILD_ID) return;
         let eventLogsChannel = await guild.channels.cache.get(process.env.EVENT_LOGS!) as TextChannel;
+        let staffChannel = (await guild.channels.cache.get(process.env.STAFF_CHAT!)) as TextChannel;
         let roleLogsChannel = await guild.channels.cache.get(process.env.ROLE_LOGS!) as TextChannel;
 
         let reason: string;
@@ -29,6 +30,30 @@ module.exports = {
         };
 
         switch (auditLogEntry.action) {
+
+            case AuditLogEvent.AutoModerationBlockMessage:
+                var autoModLog = new EmbedBuilder()
+                .setColor('#e6c335')
+                .setDescription(`<@${auditLogEntry.targetId}>`)
+                .addFields({
+                name: `Filter`,
+                value: (auditLogEntry.extra as GuildAuditLogsEntryExtraField[143]).autoModerationRuleName,
+                inline: false,
+                })
+                .setTimestamp()
+                .setFooter({ text: `User ID: ${auditLogEntry.targetId}` });
+
+            if (auditLogEntry.executor instanceof User) {
+            autoModLog.setTitle(`AutoMod Triggered - ${auditLogEntry.executor.username}`);
+            autoModLog.setThumbnail(`https://cdn.discordapp.com/avatars/${auditLogEntry.executorId}/${auditLogEntry.executor.avatar}.png?size=1024`);
+            }
+
+        await staffChannel.send({
+          content: '<@&>',
+          embeds: [autoModLog],
+        });
+        log.info(`AutoMod Triggered`);
+        break;
             case AuditLogEvent.InviteCreate:
                 try {
                     await inviteDB.create({
