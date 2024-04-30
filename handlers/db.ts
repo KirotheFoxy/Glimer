@@ -27,22 +27,24 @@ userDB.sync();
 
 export interface messageDBModel extends Model<InferAttributes<messageDBModel>, InferCreationAttributes<messageDBModel>> {
     id: string;
+    channelID: CreationOptional<string>;
     userID: CreationOptional<string>;
     content: CreationOptional<string>;
     attachments: CreationOptional<string>;
-};
-
-export const MessageDB: any = sequelize.define<messageDBModel>("messages", {
+  }
+  
+  export const MessageDB: any = sequelize.define<messageDBModel>('messages', {
     id: {
-        type: DataTypes.STRING,
-        primaryKey: true,
-        unique: true,
+      type: DataTypes.STRING,
+      primaryKey: true,
+      unique: true,
     },
+    channelID: DataTypes.STRING,
     userID: DataTypes.STRING,
-    content: DataTypes.TEXT,	
+    content: DataTypes.TEXT,
     attachments: DataTypes.TEXT,
-});
-MessageDB.sync();
+  });
+  MessageDB.sync();
 
 export interface inviteModel extends Model<InferAttributes<inviteModel>, InferCreationAttributes<inviteModel>> {
     code: string;
