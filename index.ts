@@ -152,7 +152,7 @@ const commandJsonData = [
   try {
     log.info('Started refreshing application (/) commands.');
 
-    await rest.put(Routes.applicationGuildCommands(process.env.CLIENT_ID!, process.env.GUILD_ID!), { body: commandJsonData });
+    await rest.put(Routes.applicationGuildCommands(process.env.CLIENT_ID!, process.env.TEST_GUILD_ID!), { body: commandJsonData });
 
     log.info('Successfully reloaded application (/) commands.');
   } catch (error: any) {
